@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CareLamp AI - AI 适老智能关怀灯</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({startOnLoad:true, theme:'default'});</script>
+  <style>
+    body { 
+      font-family: "Segoe UI", system-ui, sans-serif; 
+      margin:0; 
+      background: linear-gradient(to bottom, #f0f4f8, #d9e2ec); 
+      color:#333; 
+      min-height: 100vh;
+    }
+    header { 
+      background: linear-gradient(135deg, #4e73df, #224abe); 
+      color:white; 
+      text-align:center; 
+      padding:100px 20px 60px; 
+    }
+    h1 { margin:0; font-size:3.8rem; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+    .subtitle { font-size:1.6rem; margin-top:16px; opacity:0.95; }
+
+    .container { max-width:1200px; margin: -50px auto 60px; padding:0 20px; }
+
+    section { margin-bottom:80px; background:white; padding:40px; border-radius:16px; box-shadow:0 8px 30px rgba(0,0,0,0.1); }
+    h2 { 
+      color:#224abe; 
+      text-align:center; 
+      font-size:2.6rem; 
+      margin:0 0 30px; 
+    }
+    h3 { color:#4e73df; margin-top:30px; }
+
+    .product-grid, .scene-grid { 
+      display:grid; 
+      grid-template-columns:repeat(auto-fit, minmax(360px, 1fr)); 
+      gap:40px; 
+      margin:40px 0; 
+    }
+    .product-img img, .scene-img img { 
+      width:100%; 
+      border-radius:16px; 
+      box-shadow:0 12px 40px rgba(0,0,0,0.15); 
+    }
+    .caption { text-align:center; margin:12px 0; color:#555; font-size:1.1rem; }
+
+    .mermaid { 
+      background:#f8f9fa; 
+      padding:20px; 
+      border-radius:12px; 
+      margin:30px 0; 
+      text-align:center; 
+    }
+
+    .demo-grid { 
+      display:grid; 
+      grid-template-columns:repeat(auto-fit, minmax(340px, 1fr)); 
+      gap:35px; 
+      margin-top:40px; 
+    }
+
+    .flip-card {
+      perspective: 1400px;
+      height: 440px;
+    }
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      transform-style: preserve-3d;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+      border-radius: 20px;
+      background: white;
+    }
+    .flip-card:hover .flip-card-inner,
+    .flip-card.active .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+      box-sizing: border-box;
+    }
+    .flip-card-front {
+      background: linear-gradient(135deg, #ffffff, #f8fbff);
+    }
+    .flip-card-back {
+      background: linear-gradient(135deg, #4e73df, #224abe);
+      color: white;
+      transform: rotateY(180deg);
+    }
+    .feature-icon { font-size: 5rem; margin-bottom: 20px; }
+    .feature-title { font-size: 1.8rem; margin: 15px 0; font-weight: bold; }
+
+    #fall-demo {
+      width: 100%;
+      max-width: 640px;
+      margin: 50px auto;
+      border: 3px solid #ddd;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #f8f9fa;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    }
+    canvas { display: block; }
+
+    @keyframes flash { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+    .alert-active { animation: flash 0.7s infinite; }
+
+    footer { 
+      text-align:center; 
+      padding:60px 20px; 
+      background:#224abe; 
+      color:white; 
+      margin-top:80px; 
+    }
+
+    @media (max-width:768px) {
+      h1 { font-size:3rem; }
+      h2 { font-size:2.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>CareLamp AI</h1>
+  <p class="subtitle">端侧多模态 AI 适老智能关怀灯 · 无感行为感知 + 主动情感陪伴 + 隐私闭环守护</p>
+</header>
+
+<div class="container">
+
+  <section>
+    <h2>产品概述</h2>
+    <p style="font-size:1.3rem; line-height:1.8; color:#444;">
+      CareLamp AI 以台灯形态集成低功耗 RGB+IR 摄像头、麦克风阵列、扬声器及高性能 NPU，实现端侧实时多模态推理。核心创意在于“看懂行为 + 听懂需求 + 主动关怀”的全闭环本地处理：通过姿态估计 + 时序行为分析 + 生成式语音交互，构建“有人陪伴、不孤单”的情感安全空间，同时确保零云端图像/语音上传，守护老人隐私尊严。
+    </p>
+
+    <div class="product-grid">
+      <div class="product-img">
+        <img src="https://m.media-amazon.com/images/S/aplus-media-library-service-media/60d4d8e5-deab-48fa-b536-691b43ccff44.__CR0,0,970,600_PT0_SX970_V1___.jpg" alt="CareLamp AI 现代简约台灯外观">
+        <p class="caption">优雅简约设计，柔光 + 智能感应自然融入家居</p>
+      </div>
+      <div class="product-img">
+        <img src="https://cdn.instant.so/sites/41WYxiBHuFvJ8WKG/assets/ADu9rOn29cOpPLJ6/better-sleep-main-image.png?width=1280" alt="CareLamp AI 床头关怀场景">
+        <p class="caption">床头/客厅摆放，零学习成本，老人友好</p>
+      </div>
+      <div class="product-img">
+        <img src="https://m.media-amazon.com/images/S/aplus-media-library-service-media/432eec55-1d0a-44f3-a63d-0a13f80c1995.__CR0,0,970,600_PT0_SX970_V1___.jpg" alt="CareLamp AI 功能细节展示">
+        <p class="caption">集成无线充电 + 多色温调节，实用与关怀兼备</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>应用场景展示</h2>
+    <div class="scene-grid">
+      <div class="scene-img">
+        <img src="https://www.milesight.com/static/mobile/en/product/product/lorawan-sensor/vs373/fall-detection-alert-patient.jpg?t=1772785894455" alt="跌倒检测实时响应场景">
+        <p class="caption">异常跌倒瞬间，灯体警报 + 推送子女</p>
+      </div>
+      <div class="scene-img">
+        <img src="https://cdn.shopify.com/s/files/1/0867/2418/2298/files/presence-sensor-fp2-05.webp?v=1741159684" alt="无感行为监测安装示例">
+        <p class="caption">壁挂/桌面无感监测，覆盖主要活动区域</p>
+      </div>
+      <div class="scene-img">
+        <img src="https://cdn.shopify.com/s/files/1/0867/2418/2298/files/presence-sensor-fp1e-01.webp?v=1756461555" alt="浴室/卧室安全守护场景">
+        <p class="caption">夜间起床/浴室活动，柔光联动防跌倒</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>技术原理与架构展示</h2>
+    
+    <h3>系统整体架构</h3>
+    <p>采用“端侧主导 + 最小云辅助”的分层设计：100% 核心推理在设备本地完成（NPU 4-8 TOPS），仅匿名行为统计（非原始数据）可选上传用于联邦学习迭代。架构强调低延迟（<100ms）、低功耗（<10W）、高隐私。</p>
+    <div class="mermaid">
+      graph TD
+        A[传感器层<br>RGB+IR 摄像头<br>麦克风阵列<br>环境光/温湿度] --> B[端侧预处理<br>图像去噪/增强<br>音频降噪/唤醒]
+        B --> C[多模态 AI 引擎<br>姿态估计 YOLO-Pose/HRNet-tiny<br>行为时序 Transformer-tiny<br>语音 ASR + 小模型生成]
+        C --> D[决策闭环<br>异常分类 + 主动触发<br>语音合成 + 氛围灯控]
+        D --> E[输出执行<br>语音交互<br>RGB 警报/柔光<br>WiFi/BLE 推送 App]
+        D -.-> F[可选云端<br>匿名统计上传<br>联邦学习迭代]
+        style A fill:#e3f2fd,stroke:#4e73df
+        style C fill:#fff3e0,stroke:#ff9800
+        style F fill:#f1f8e9,stroke:#8bc34a
+    </div>
+    <p style="text-align:center; margin:20px 0;"><em>边缘 AI 驱动的智能硬件架构，高效响应银发场景需求</em></p>
+
+    <h3>跌倒检测核心流程</h3>
+    <p>基于端侧轻量视觉 + 时序融合：实时提取人体关键点 → 计算姿态变化向量 → Transformer 模型判断异常序列 → 阈值 + 置信度融合决策。整个流程 <5s 内完成，误报率控制 <5%。</p>
+    <div class="mermaid">
+      flowchart TD
+        Start[实时视频帧输入] --> Pre[预处理: 去噪 + 人体检测]
+        Pre --> Pose[姿态估计: 提取 17 keypoints]
+        Pose --> Seq[时序缓冲: 过去 2-5s 关键点序列]
+        Seq --> Feat[特征提取: 速度/角度/重心变化]
+        Feat --> Model[轻量 Transformer / LSTM-tiny<br>分类: 正常 / 跌倒风险 / 已跌倒]
+        Model --> Dec{置信度 > 0.92?}
+        Dec -->|是| Alert[立即触发: 红色闪烁 + 语音询问<br>App 推送 + 可选紧急拨号]
+        Dec -->|否| Continue[继续监测 + 学习用户模式]
+        Alert --> Log[记录匿名事件统计<br>用于模型迭代]
+        Continue --> Start
+    </div>
+
+    <h3>主动关怀逻辑</h3>
+    <p>通过长期行为模式学习（端侧时序模型），检测“久坐 >2h”“夜间起床频率异常”等，触发个性化语音（支持子女声音合成）。创意点：关怀不只是提醒，更是情感陪伴。</p>
+  </section>
+
+  <section>
+    <h2>核心功能交互演示</h2>
+    <p style="text-align:center; font-size:1.3rem; color:#555; margin-bottom:50px;">点击或悬停卡片，查看功能 + 动画模拟</p>
+
+    <div class="demo-grid">
+
+      <div class="flip-card" onclick="this.classList.toggle('active')">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="feature-icon">🚨</div>
+            <h3 class="feature-title">实时跌倒检测 + 快速响应</h3>
+            <p>端侧多模态姿态 + 时序分析，<5s 捕获事件，声光 + App 推送</p>
+            <small>点击查看过程模拟</small>
+          </div>
+          <div class="flip-card-back">
+            <div id="fall-demo">
+              <canvas id="canvas" width="640" height="420"></canvas>
+            </div>
+            <p style="margin-top:20px; font-size:1.2rem;">模拟：正常活动 → 失衡 → 跌倒 → 警报触发</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card" onclick="this.classList.toggle('active')">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="feature-icon">💬</div>
+            <h3 class="feature-title">行为感知主动关怀</h3>
+            <p>端侧学习作息模式，异常时语音提醒 + 子女声音合成</p>
+            <small>点击查看波纹动画</small>
+          </div>
+          <div class="flip-card-back" style="padding:50px;">
+            <div style="font-size:4.5rem; animation: pulse 2.2s infinite;">🗣️</div>
+            <p style="margin:25px 0; font-size:1.4rem; text-align:center;">“爷爷，起来活动一下吧～ 我陪您说说话”</p>
+            <div style="width:100px; height:100px; background:rgba(255,255,255,0.25); border-radius:50%; animation: ripple 3.5s infinite;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card" onclick="this.classList.toggle('active')">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="feature-icon">💊</div>
+            <h3 class="feature-title">智能用药 + 昼夜节律照明</h3>
+            <p>定时 + 行为触发提醒，夜间自动柔光防跌倒</p>
+          </div>
+          <div class="flip-card-back">
+            <div style="font-size:6rem; animation: shake 1.8s infinite;">⏰</div>
+            <p style="margin-top:25px; font-size:1.5rem; text-align:center;">“该吃药啦！夜灯已柔和开启”</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card" onclick="this.classList.toggle('active')">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="feature-icon">🔒</div>
+            <h3 class="feature-title">端侧隐私优先</h3>
+            <p>全本地推理，无图像/语音上传，仅匿名统计迭代模型</p>
+          </div>
+          <div class="flip-card-back">
+            <div style="font-size:7rem;">🛡️</div>
+            <p style="margin:25px 0; font-size:1.4rem; text-align:center;">本地多模态闭环<br>隐私与安全并重</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p>© 2026 CareLamp AI Demo - Powered by ThunderSoft AIoT & Edge AI 团队</p>
+  <p>@thundersoftjianglu | https://thundersoftjianglu.github.io/</p>
+</footer>
+
+<script>
+// Canvas 跌倒动画
+const canvas = document.getElementById('canvas');
+if (canvas) {
+  const ctx = canvas.getContext('2d');
+  let phase = 0;
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#e8ecef';
+    ctx.fillRect(0, canvas.height - 80, canvas.width, 80);
+
+    const lampX = 100, lampY = 100;
+    ctx.shadowColor = phase >= 2 ? '#ff4d4d' : '#4e73df';
+    ctx.shadowBlur = phase >= 2 ? 40 : 20;
+    ctx.fillStyle = phase >= 2 ? (Math.floor(Date.now()/150) % 2 === 0 ? '#ff3333' : '#ff8080') : '#4e73df';
+    ctx.beginPath();
+    ctx.arc(lampX, lampY, 60, 0, Math.PI*2);
+    ctx.fill();
+
+    const personX = 320;
+    let personBaseY = canvas.height - 140;
+    ctx.strokeStyle = '#2c3e50';
+    ctx.lineWidth = 10;
+
+    if (phase === 0 || phase === 3) {
+      ctx.beginPath(); ctx.arc(personX, personBaseY - 100, 35, 0, Math.PI*2); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(personX, personBaseY - 65); ctx.lineTo(personX, personBaseY + 30); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(personX, personBaseY + 30); ctx.lineTo(personX-40, personBaseY + 120); ctx.moveTo(personX, personBaseY + 30); ctx.lineTo(personX+40, personBaseY + 120); ctx.stroke();
+    } else if (phase === 1) {
+      const sway = Math.sin(Date.now() / 300) * 8;
+      ctx.save();
+      ctx.translate(personX + sway, personBaseY);
+      ctx.beginPath(); ctx.moveTo(0, -65); ctx.lineTo(0, 30); ctx.stroke();
+      ctx.restore();
+    } else if (phase === 2) {
+      const fallProgress = (Date.now() % 2000) / 2000;
+      const tilt = fallProgress * 90;
+      ctx.save();
+      ctx.translate(personX, personBaseY + 30 * fallProgress);
+      ctx.rotate(tilt * Math.PI / 180);
+      ctx.beginPath(); ctx.moveTo(0, -95); ctx.lineTo(0, 50); ctx.stroke();
+      ctx.beginPath(); ctx.arc(0, -95, 35, 0, Math.PI*2); ctx.stroke();
+      ctx.restore();
+    }
+
+    if (phase >= 2) {
+      ctx.fillStyle = '#ff4d4d';
+      ctx.font = 'bold 48px Arial';
+      ctx.fillText('FALL DETECTED', 140, 240);
+      ctx.font = '28px Arial';
+      ctx.fillText('<5s 响应 | 已推送', 160, 300);
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  setInterval(() => { phase = (phase + 1) % 4; }, 9000);
+  draw();
+}
+</script>
+
+<style>
+  @keyframes pulse { 0%,100% { transform:scale(1); } 50% { transform:scale(1.2); } }
+  @keyframes ripple { 0% { transform:scale(0.4); opacity:0.8; } 100% { transform:scale(2.5); opacity:0; } }
+  @keyframes shake { 0%,100% { transform:translateX(0); } 25% { transform:translateX(-10px); } 75% { transform:translateX(10px); } }
+</style>
+
+</body>
+</html>
